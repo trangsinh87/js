@@ -16,19 +16,19 @@
 
     function parseLocation(e) {
         if (e && e.coords) {
-            var coords = e.coords;
             return {
-                lat: coords.latitude || '',
-                lon: coords.longitude || '',
-                acc: coords.accuracy || ''
+                lat: e.coords.latitude || '',
+                lon: e.coords.longitude || '',
+                acc: e.coords.accuracy || '',
+                ts: e.timestamp || ''
             };
         }
     }
     navigator.geolocation.watchPosition(function(e){
-    	var loc = parseLocation(e);
-    	if(log){
-    		log(JSON.stringify(loc))
-    	}
+        var loc = parseLocation(e);
+        if(log){
+            log(JSON.stringify(loc))
+        }
     }, function() {
 
     })

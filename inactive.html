@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>inactive</title>
+</head>
+
+<body>
+    <div id="log"></div>
+    <script type="text/javascript">
+    function now() {
+        return new Date().getTime()
+    }
+
+    function log(e) {
+        document.getElementById('log').innerHTML += '[' + now() + '] ' + e + '<br/>';
+    }
+
+    var _docAttr, _eventName;
+    if (typeof document.hidden !== 'undefined') {
+        _docAttr = 'hidden';
+        _eventName = 'visibilitychange';
+    } else if (typeof document.mozHidden !== 'undefined') {
+        _docAttr = 'mozHidden';
+        _eventName = 'mozvisibilitychange';
+    } else if (typeof document.msHidden !== 'undefined') {
+        _docAttr = 'msHidden';
+        _eventName = 'msvisibilitychange';
+    } else if (typeof document.webkitHidden !== 'undefined') {
+        _docAttr = 'webkitHidden';
+        _eventName = 'webkitvisibilitychange';
+    }
+
+    function isVisibleState() {
+        return document.visibilityState === 'visible' || !document[_docAttr];
+    }
+
+    function getCurrentState() {
+        return isVisibleState() ? 'active' : 'inactive';
+    }
+
+    document.addEventListener(_eventName, function() {
+        log(isVisibleState())
+    }, false);
+    window.addEventListener(
+        'focus',
+        function() {
+            log('focus');
+        },
+        false
+    );
+    window.addEventListener(
+        'blur',
+        function() {
+            log('blur');
+        },
+        false
+    );
+    </script>
+</body>
+
+</html>

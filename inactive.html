@@ -8,7 +8,9 @@
 </head>
 
 <body>
+    <div id="bit"></div>
     <div id="log"></div>
+    
     <script type="text/javascript">
     function now() {
         return new Date().getTime()
@@ -17,6 +19,13 @@
     function log(e) {
         document.getElementById('log').innerHTML += '[' + now() + '] ' + e + '<br/>';
     }
+    function bit(e){
+        document.getElementById('bit').innerHTML += e ? '1' : '0';
+    }
+
+    setInterval(function(){
+        bit(isVisibleState());
+    }, 1000);
 
     var _docAttr, _eventName;
     if (typeof document.hidden !== 'undefined') {
@@ -41,9 +50,9 @@
         return isVisibleState() ? 'active' : 'inactive';
     }
 
-    document.addEventListener(_eventName, function() {
-        log(isVisibleState())
-    }, false);
+    // document.addEventListener(_eventName, function() {
+    //     log(isVisibleState())
+    // }, false);
     window.addEventListener(
         'focus',
         function() {
